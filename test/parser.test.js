@@ -33,8 +33,5 @@ test('parsePricesPage handles tables without explicit header cells', () => {
   const result = parsePricesPage(html);
 
   assert.deepEqual(result.headers, ['State', 'Value']);
-  assert.deepEqual(result.rows, [
-    { State: 'State', Value: 'Value' },
-    { State: 'Karnataka', Value: '98' }
-  ]);
+  assert.deepEqual(result.rows, [{ State: 'Karnataka', Value: '98' }]);
 });

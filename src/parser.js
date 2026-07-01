@@ -42,18 +42,19 @@ function parsePricesPage(html) {
   }
 
   const firstRowCells = tableRows.first().find('th,td');
-  let headers = firstRowCells
+  const rawHeaders = firstRowCells
     .map((_, cell) => clean($(cell).text()))
-    .get()
-    .filter(Boolean);
+    .get();
 
-  if (!headers.length) {
+  let headers;
+  if (!rawHeaders.some(Boolean)) {
     const columns = firstRowCells.length;
     headers = Array.from({ length: columns }, (_, idx) => `Column ${idx + 1}`);
+  } else {
+    headers = rawHeaders.map((header, index) => header || `Column ${index + 1}`);
   }
 
-  const hasHeaderRow = tableRows.first().find('th').length > 0;
-  const dataRows = hasHeaderRow ? tableRows.slice(1) : tableRows;
+  const dataRows = tableRows.slice(1);
 
   const rows = dataRows
     .map((_, row) => {
