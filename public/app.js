@@ -4,6 +4,7 @@ const emptyState = document.getElementById('emptyState');
 const refreshButton = document.getElementById('refresh');
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
+const DATA_ENDPOINTS = ['./data/daily-prices.json', './api/daily-prices'];
 
 function escapeHtml(value) {
   return value
@@ -40,16 +41,31 @@ async function loadData() {
   statusText.textContent = 'Refreshing data...';
 
   try {
-    const response = await fetch('/api/daily-prices', { cache: 'no-store' });
-    if (!response.ok) {
-      throw new Error(`Source fetch failed with status ${response.status}`);
+    let payload;
+    let lastError;
+
+    for (const endpoint of DATA_ENDPOINTS) {
+      try {
+        const response = await fetch(endpoint, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`Source fetch failed with status ${response.status}`);
+        }
+
+        payload = await response.json();
+        break;
+      } catch (error) {
+        lastError = error;
+      }
     }
 
-    const payload = await response.json();
+    if (!payload) {
+      throw lastError || new Error('Unable to load data right now.');
+    }
+
     renderTable(payload.headers || [], payload.rows || []);
 
     const fetched = payload.fetchedAt ? new Date(payload.fetchedAt).toLocaleString() : 'just now';
-    statusText.textContent = `Last updated: ${fetched}. Auto-refresh runs every 24 hours.`;
+    statusText.textContent = `Last updated: ${fetched}. Published data refreshes every 24 hours.`;
   } catch (error) {
     table.hidden = true;
     emptyState.hidden = false;
