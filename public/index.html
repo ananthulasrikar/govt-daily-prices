@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Government Daily Prices</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="header-card">
+        <h1>Government Daily Prices</h1>
+        <p>Source: <a href="https://fcainfoweb.nic.in/Reports/DB/Dailyprices.aspx" target="_blank" rel="noreferrer">fcainfoweb.nic.in Daily Prices</a></p>
+        <div class="meta">
+          <span id="status">Loading latest data...</span>
+          <button id="refresh" type="button">Refresh now</button>
+        </div>
+      </section>
+
+      <section class="table-card">
+        <div class="table-wrapper">
+          <table id="pricesTable" hidden></table>
+        </div>
+        <p id="emptyState" class="empty" hidden>No data available right now.</p>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

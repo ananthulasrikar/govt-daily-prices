@@ -1,0 +1,25 @@
+{
+  "name": "govt-daily-prices",
+  "version": "1.0.0",
+  "description": "Daily government prices viewer",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node --test",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ananthulasrikar/govt-daily-prices.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ananthulasrikar/govt-daily-prices/issues"
+  },
+  "homepage": "https://github.com/ananthulasrikar/govt-daily-prices#readme",
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "express": "^5.2.1"
+  }
+}
