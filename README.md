@@ -19,7 +19,7 @@ Open `http://localhost:3000`.
 
 - The repository publishes a static snapshot to GitHub Pages.
 - Deployments run on every push, on manual dispatch, and once per day to refresh the published data.
-- The published site reads from `public/data/daily-prices.json`, while local development falls back to `/api/daily-prices`.
+- The published site reads from `public/data/daily-prices.json`, while local development falls back to `./api/daily-prices`.
 
 ## Behavior
 

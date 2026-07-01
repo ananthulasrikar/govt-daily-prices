@@ -42,9 +42,10 @@ async function loadData() {
 
   try {
     let payload;
+    let dataSource = 'published snapshot';
     let lastError;
 
-    for (const endpoint of DATA_ENDPOINTS) {
+    for (const [index, endpoint] of DATA_ENDPOINTS.entries()) {
       try {
         const response = await fetch(endpoint, { cache: 'no-store' });
         if (!response.ok) {
@@ -52,6 +53,7 @@ async function loadData() {
         }
 
         payload = await response.json();
+        dataSource = index === 0 ? 'published snapshot' : 'live API';
         break;
       } catch (error) {
         lastError = error;
@@ -65,7 +67,7 @@ async function loadData() {
     renderTable(payload.headers || [], payload.rows || []);
 
     const fetched = payload.fetchedAt ? new Date(payload.fetchedAt).toLocaleString() : 'just now';
-    statusText.textContent = `Last updated: ${fetched}. Published data refreshes every 24 hours.`;
+    statusText.textContent = `Last updated: ${fetched} via ${dataSource}. Published data refreshes every 24 hours.`;
   } catch (error) {
     table.hidden = true;
     emptyState.hidden = false;
